@@ -4,6 +4,7 @@ import "./models/usuario.js";
 import "./models/carrera.js";
 import "./models/tipo_usuario.js";
 import "./models/reputacion.js";
+import "./models/telefono_usuario.js"
 
 async function main() {
   try {

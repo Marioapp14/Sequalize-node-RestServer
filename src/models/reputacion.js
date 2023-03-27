@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import { sequalize } from "../database/database.js";
 import { Usuarios } from "./usuario.js";
 
-export const Reputacion = sequalize.define('reputacion',
+export const Reputacion = sequalize.define('reputacione',
   {
     id: {
       type: DataTypes.INTEGER,
