@@ -3,10 +3,11 @@ import { sequalize } from "./database/database.js";
 import "./models/usuario.js";
 import "./models/carrera.js";
 import "./models/tipo_usuario.js";
+import "./models/reputacion.js";
 
 async function main() {
   try {
-    await sequalize.sync({ force: false }); //Hace una sincronizacion con la base de datos
+    await sequalize.sync(); //Hace una sincronizacion con la base de datos
     console.log("Connection has been established successfuly");
 
     app.listen(3000);

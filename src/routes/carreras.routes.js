@@ -8,10 +8,10 @@ import {
 } from "../controllers/carreras.controller.js";
 const router = Router();
 
-router.get("/carreras", getCarreras);
-router.post("/carreras", createCarrera);
-router.put("/carreras/:id", updateCarrera);
-router.delete("/carreras/:id", deleteCarrera);
-router.get("/carreras/:id", getCarrera);
+router.get("/carrera", getCarreras);
+router.post("/carrera", createCarrera);
+router.put("/carrera/:id", updateCarrera);
+router.delete("/carrera/:id", deleteCarrera);
+router.get("/carrera/:id", getCarrera);
 
 export default router;
