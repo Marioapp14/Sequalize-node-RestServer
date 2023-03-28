@@ -1,10 +1,9 @@
 import { DataTypes } from "sequelize";
 import { sequalize } from "../database/database.js";
-import { Cuenta } from "./cuenta.js";
-import {TelefonoUsuario} from "./telefono_usuario.js"
+import { Sesion } from "./sessions.js";
 
-export const Usuarios = sequalize.define(
-  "usuarios",
+export const Cuenta = sequalize.define(
+  "cuenta",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -12,26 +11,28 @@ export const Usuarios = sequalize.define(
       autoIncrement: true,
       allowNull: false,
     },
-    codigo: {
+    usuario: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    nombre: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    fecha_creacion: {
+      type: DataTypes.DATE,
+    },
+    fecha_actualizacion: {
+      type: DataTypes.DATE,
     },
   },
   {
     timestamps: false,
   }
 );
-
-Usuarios.hasMany(TelefonoUsuario, {
-  foreignKey: "id",
+Cuenta.hasMany(Sesion, {
+  //Una cuenta tiene muchas Sesiones
+  foreignKey: "id_cuenta",
   sourceKey: "id",
 });
 
-Usuarios.hasMany(Cuenta, {
-  foreignKey: "id_usuario",
-  sourceKey: "id",
-});

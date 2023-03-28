@@ -4,7 +4,10 @@ import "./models/usuario.js";
 import "./models/carrera.js";
 import "./models/tipo_usuario.js";
 import "./models/reputacion.js";
-import "./models/telefono_usuario.js"
+import "./models/telefono_usuario.js";
+import "./models/estado_cuenta.js";
+import "./models/tipo_cuenta.js";
+import "./models/sessions.js";
 
 async function main() {
   try {
@@ -17,7 +20,5 @@ async function main() {
     console.log("Unable to connect to the database");
   }
 }
-
-
 
 main();

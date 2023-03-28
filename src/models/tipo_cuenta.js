@@ -1,37 +1,35 @@
 import { DataTypes } from "sequelize";
 import { sequalize } from "../database/database.js";
 import { Cuenta } from "./cuenta.js";
-import {TelefonoUsuario} from "./telefono_usuario.js"
 
-export const Usuarios = sequalize.define(
-  "usuarios",
+export const TipoCuenta = sequalize.define(
+  "tipo_cuenta",
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
-      allowNull: false,
-    },
-    codigo: {
-      type: DataTypes.STRING,
+      autoIncrement: false,
       allowNull: false,
     },
     nombre: {
       type: DataTypes.STRING,
-      allowNull: false,
+    },
+    descripcion: {
+      type: DataTypes.STRING,
     },
   },
   {
     timestamps: false,
   }
 );
-
-Usuarios.hasMany(TelefonoUsuario, {
-  foreignKey: "id",
+TipoCuenta.hasMany(Cuenta, {
+  //Un tipo de cuenta tiene muchas Cuentas
+  foreignKey: "id_tipo_cuenta",
   sourceKey: "id",
 });
 
-Usuarios.hasMany(Cuenta, {
-  foreignKey: "id_usuario",
-  sourceKey: "id",
+Cuenta.belongsTo(TipoCuenta, {
+  //muchos Cuentas tienen un solo tipo de Cuenta
+  foreignKey: "id_tipo_cuenta",
+  targetId: "id",
 });
