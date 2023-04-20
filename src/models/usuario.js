@@ -11,10 +11,12 @@ export const Usuarios = sequalize.define(
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
+      unique: true,
     },
     codigo: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     nombre: {
       type: DataTypes.STRING,

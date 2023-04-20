@@ -12,14 +12,13 @@ async function main() {
   const port = process.env.PORT || 3000;
   try {
     sequalize.sync(); //Hace la conexion con la base de datos
-    //Hace una sincronizacion con la base de datos
-    //Elimina las tablas de la base de datos
-    console.log("Connection has been established successfuly");
-
     app.listen(port);
     console.log("Server is listening on port ", port);
   } catch (error) {
     console.log("Unable to connect to the database");
   }
 }
+
 main();
+
+

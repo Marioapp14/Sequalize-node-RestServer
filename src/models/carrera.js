@@ -10,6 +10,7 @@ export const Carrera = sequalize.define(
       primaryKey: true,
       autoIncrement: false,
       allowNull: false,
+      unique: true,
     },
     nombre: {
       type: DataTypes.STRING,

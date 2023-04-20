@@ -10,10 +10,12 @@ export const Cuenta = sequalize.define(
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
+      unique: true,
     },
     usuario: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
