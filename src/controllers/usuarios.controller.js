@@ -1,5 +1,6 @@
 import { Usuarios } from "../models/usuario.js";
 
+
 export const getUsuarios = async (req, res) => {
   try {
     const usuarios = await Usuarios.findAll();
@@ -20,7 +21,7 @@ export const getUsuario = async (req, res) => {
     if (!usuario)
       return res
         .status(404)
-        .json({ message: `No existe el usuario con id ${id}`});
+        .json({ message: `No existe el usuario con id ${id}` });
     res.json(usuario);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -28,13 +29,13 @@ export const getUsuario = async (req, res) => {
 };
 
 export const CreateUsuario = async (req, res) => {
-  const { codigo, nombre, id_tipo_usuario, id_carrera } = req.body;
+  const { codigo, nombre, id_carrera } = req.body;
 
   try {
     const newUsuario = await Usuarios.create({
       codigo,
       nombre,
-      id_tipo_usuario,
+      id_carrera,
     });
 
     res.json(newUsuario);

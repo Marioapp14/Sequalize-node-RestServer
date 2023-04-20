@@ -1,5 +1,6 @@
 import { TelefonoUsuario } from "../models/telefono_usuario.js";
 
+
 export const getTelefonos = async (req, res) => {
   try {
     const telefonos = await TelefonoUsuario.findAll();

@@ -1,18 +1,28 @@
 import express from "express";
-import Routes from "./routes/projects.routes.js";
-import TiposRoutes from "./routes/tiposUsuarios.routes.js";
+import Routes from "./routes/usuarios.routes.js";
 import CarreraRoutes from "./routes/carreras.routes.js";
-import ReputacionRoutes from "./routes/reputacion.routes.js";
 import TelefonoRoutes from "./routes/telefonos.routes.js";
+import TipoCuentaRoutes from "./routes/tipocuenta.routes.js";
+import CuentaRoutes from "./routes/cuenta.routes.js";
+
+import responseTime from "response-time";
+// import  TipoCuentaRoutes  from "./routes/tipo_cuenta.js";
+
 
 const app = express();
 
 //midlewares
 app.use(express.json()); //cada vez que se envie un daro en Json el servidor lo va a interpretar y lo guarda dentro de un req.body
+app.use(responseTime());
 
 app.use(Routes);
-app.use(TiposRoutes);
 app.use(CarreraRoutes);
-app.use(ReputacionRoutes);
 app.use(TelefonoRoutes);
+app.use(TipoCuentaRoutes);
+app.use(CuentaRoutes);
+// app.use(SessionsRoutes);
+// app.use(EstadoCuentaRoutes);
+
+
+
 export default app;
