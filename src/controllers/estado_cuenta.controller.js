@@ -1,4 +1,4 @@
-import { EstadoCuenta } from "../models/tipo_cuenta.js";
+import { EstadoCuenta } from "../models/estado_cuenta.js";
 
 export const getEstadoCuentas = async (req, res) => {
   try {
@@ -57,7 +57,7 @@ export const updateEstadoCuenta = async (req, res) => {
   }
 };
 
-export const deleteTipoCuenta = async (req, res) => {
+export const deleteEstadoCuenta = async (req, res) => {
   try {
     const { id } = req.params;
     await EstadoCuenta.destroy({
