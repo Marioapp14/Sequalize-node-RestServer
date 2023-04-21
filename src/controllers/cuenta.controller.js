@@ -1,11 +1,18 @@
 import { Cuenta } from "../models/cuenta.js";
 import bcrypt from "bcryptjs";
 
-
 export const getCuentas = async (req, res) => {
   try {
-    const cuenta = await Cuenta.findAll();
-    res.json(cuenta);
+    const { limite = 5, desde = 0 } = req.query;
+
+    const cuenta = await Cuenta.findAll({
+      offset: Number(desde),
+      limit: Number(limite),
+    });
+    const total = await Cuenta.count();
+    res.json({ cuenta, total });
+
+    // res.json(cuenta);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -30,20 +37,10 @@ export const getCuenta = async (req, res) => {
 };
 
 export const CreateCuenta = async (req, res) => {
-
   const { usuario, password, id_usuario, id_tipo_cuenta, id_estado_cuenta } =
     req.body;
 
   try {
-    //verificar si el usuario existe
-    const existeusuario = await Cuenta.findOne({
-      where: { usuario },
-    });
-    if (existeusuario)
-      return res
-        .status(400)
-        .json({ message: `El usuario-correo: ${usuario} ya esta registrado` });
-
     const newCuenta = await Cuenta.create({
       usuario,
       password,
@@ -58,7 +55,12 @@ export const CreateCuenta = async (req, res) => {
 
     //guardar en DB
     await newCuenta.save();
-    res.json(newCuenta);
+
+    //excluir la contraseña del objeto que se retorna
+    const cuentaJSON = newCuenta.toJSON();
+    delete cuentaJSON.password;
+
+    res.json(cuentaJSON);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -67,10 +69,20 @@ export const CreateCuenta = async (req, res) => {
 export const updateCuenta = async (req, res) => {
   try {
     const { id } = req.params;
+    const { usuario, password, ...resto } = req.body;
+
+    //Validar contra la base de datos
+
+    if (password) {
+      //encriptar la contraseña
+      const salt = bcrypt.genSaltSync(10);
+      resto.password = bcrypt.hashSync(password, salt);
+    }
 
     const cuenta = await Cuenta.findOne({
       where: { id },
     });
+
     cuenta.set(req.body);
     await cuenta.save();
     return res.json(cuenta);

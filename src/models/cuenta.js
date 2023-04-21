@@ -2,7 +2,6 @@ import { DataTypes } from "sequelize";
 import { sequalize } from "../database/database.js";
 import { Sesion } from "./sessions.js";
 
-
 export const Cuenta = sequalize.define(
   "cuenta",
   {
@@ -30,11 +29,15 @@ export const Cuenta = sequalize.define(
   },
   {
     timestamps: false,
-  }
+    toJSON: {
+      // Excluimos la propiedad "password" del objeto JSON
+      exclude: ['password']
+    }
+  }, 
 );
+
 Cuenta.hasMany(Sesion, {
   //Una cuenta tiene muchas Sesiones
   foreignKey: "id_cuenta",
   sourceKey: "id",
 });
-
