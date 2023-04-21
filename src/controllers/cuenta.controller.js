@@ -6,8 +6,8 @@ export const getCuentas = async (req, res) => {
     const { limite = 5, desde = 0 } = req.query;
 
     const cuenta = await Cuenta.findAll({
-      offset: Number(desde),
-      limit: Number(limite),
+      // offset: Number(desde),
+      // limit: Number(limite),
     });
     const total = await Cuenta.count();
     res.json({ cuenta, total });
