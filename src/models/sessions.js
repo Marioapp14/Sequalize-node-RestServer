@@ -7,8 +7,9 @@ export const Sesion = sequalize.define(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: false,
+      autoIncrement: true,
       allowNull: false,
+      unique: true,
     },
     fecha_creacion: {
       type: DataTypes.DATE,

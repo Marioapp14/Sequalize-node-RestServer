@@ -36,6 +36,7 @@ export const createCarrera = async (req, res) => {
       nombre,
     });
 
+    await newCarrera.save();
     res.json(newCarrera);
   } catch (error) {
     return res.status(500).json({ message: error.message });

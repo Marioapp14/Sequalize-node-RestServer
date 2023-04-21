@@ -28,13 +28,21 @@ export const getCuenta = async (req, res) => {
 };
 
 export const CreateCuenta = async (req, res) => {
-  const { nombreUsuario, paswword, id_usuario } = req.body;
+  const {
+    usuario,
+    password,
+    id_usuario,
+    id_tipo_cuenta,
+    id_estado_cuenta,
+  } = req.body;
 
   try {
-    const newCuenta = await Usuarios.create({
-      nombreUsuario,
-      paswword,
+    const newCuenta = await Cuenta.create({
+      usuario,
+      password,
       id_usuario,
+      id_tipo_cuenta,
+      id_estado_cuenta,
     });
 
     res.json(newCuenta);
