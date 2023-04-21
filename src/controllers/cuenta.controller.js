@@ -1,4 +1,6 @@
 import { Cuenta } from "../models/cuenta.js";
+import bcrypt from "bcryptjs";
+
 
 export const getCuentas = async (req, res) => {
   try {
@@ -28,15 +30,20 @@ export const getCuenta = async (req, res) => {
 };
 
 export const CreateCuenta = async (req, res) => {
-  const {
-    usuario,
-    password,
-    id_usuario,
-    id_tipo_cuenta,
-    id_estado_cuenta,
-  } = req.body;
+
+  const { usuario, password, id_usuario, id_tipo_cuenta, id_estado_cuenta } =
+    req.body;
 
   try {
+    //verificar si el usuario existe
+    const existeusuario = await Cuenta.findOne({
+      where: { usuario },
+    });
+    if (existeusuario)
+      return res
+        .status(400)
+        .json({ message: `El usuario-correo: ${usuario} ya esta registrado` });
+
     const newCuenta = await Cuenta.create({
       usuario,
       password,
@@ -45,6 +52,12 @@ export const CreateCuenta = async (req, res) => {
       id_estado_cuenta,
     });
 
+    //encriptar la contraseña
+    const salt = bcrypt.genSaltSync(10);
+    newCuenta.password = bcrypt.hashSync(password, salt);
+
+    //guardar en DB
+    await newCuenta.save();
     res.json(newCuenta);
   } catch (error) {
     return res.status(500).json({ message: error.message });

@@ -12,7 +12,7 @@ import responseTime from "response-time";
 const app = express();
 
 //midlewares
-app.use(express.json()); //cada vez que se envie un daro en Json el servidor lo va a interpretar y lo guarda dentro de un req.body
+app.use(express.json()); //cada vez que se envie un dato en Json el servidor lo va a interpretar y lo guarda dentro de un req.body
 app.use(responseTime());
 app.use(cors());
 

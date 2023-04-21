@@ -15,8 +15,8 @@ export const TipoCuenta = sequalize.define(
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "Usuario",
-      values : ["Superadmin", "Admin", "Funcionario", "Usuario"],
+      values : ["Superadmin", "Administrador", "Funcionario", "Usuario"],
+      unique: true,
     },
     descripcion: {
       type: DataTypes.STRING,

@@ -1,5 +1,6 @@
 import { TipoCuenta } from "../models/tipo_cuenta.js";
 
+
 export const getTipoCuentas = async (req, res) => {
   try {
     const tipocuenta = await TipoCuenta.findAll();
@@ -27,7 +28,8 @@ export const getTipoCuenta = async (req, res) => {
   }
 };
 
-export const CreateTipoCuenta= async (req, res) => {
+export const CreateTipoCuenta = async (req, res) => {
+
   const { nombre, descripcion } = req.body;
 
   try {
