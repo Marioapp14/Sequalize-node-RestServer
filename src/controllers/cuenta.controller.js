@@ -1,18 +1,31 @@
 import { Cuenta } from "../models/cuenta.js";
 import bcrypt from "bcryptjs";
+import { Op } from "sequelize";
 
 export const getCuentas = async (req, res) => {
   try {
     const { limite = 5, desde = 0 } = req.query;
 
-    const cuenta = await Cuenta.findAll({
-      // offset: Number(desde),
-      // limit: Number(limite),
-    });
-    const total = await Cuenta.count();
-    res.json({ cuenta, total });
-
-    // res.json(cuenta);
+    const [cuentas, total] = await Promise.all([
+      //Encuentra todos los usuarios, excepto los que estan eliminados, es decir que no estan en el estado 4
+      Cuenta.findAll({
+        where: {
+          id_estado_cuenta: {
+            [Op.ne]: 4,
+          },
+        },
+        // offset: Number(desde),
+        // limit: Number(limite),
+      }),
+      Cuenta.count({
+        where: {
+          id_estado_cuenta: {
+            [Op.ne]: 4,
+          },
+        },
+      }),
+    ]);
+    res.json({ cuentas, total });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -24,12 +37,12 @@ export const getCuenta = async (req, res) => {
     const cuenta = await Cuenta.findOne({
       where: {
         id: id,
+        id_estado_cuenta: {
+          [Op.ne]: 4,
+        },
       },
     });
-    if (!cuenta)
-      return res
-        .status(404)
-        .json({ message: `No existe la cuenta con id ${id}` });
+
     res.json(cuenta);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -94,12 +107,20 @@ export const updateCuenta = async (req, res) => {
 export const deleteCuenta = async (req, res) => {
   try {
     const { id } = req.params;
-    await Cuenta.destroy({
-      where: {
-        id: id,
-      },
+    // const cuenta = await Cuenta.destroy({
+    //   where: {
+    //     id: id,
+    //   },
+    // });
+    // res.json(cuenta);
+
+    const cuenta = await Cuenta.findOne({
+      where: { id },
+      set: { id_estado_cuenta: 4 },
     });
-    res.sendStatus(204);
+    cuenta.set({ id_estado_cuenta: 4 });
+    await cuenta.save();
+    res.json(cuenta);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

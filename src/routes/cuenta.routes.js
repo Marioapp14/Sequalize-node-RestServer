@@ -14,9 +14,9 @@ import {
 
 const router = Router();
 
-router.get("/cuentas/", getCuentas);
+router.get("/cuenta/", getCuentas);
 router.post(
-  "/cuentas",
+  "/cuenta",
   [
     check("usuario").custom(existeUsuario),
     check("password", "El password debe ser de al menos 6 caracteres").isLength(
@@ -27,7 +27,7 @@ router.post(
   CreateCuenta
 );
 router.put(
-  "/cuentas/:id",
+  "/cuenta/:id",
   [
     check("id", "No es un id valido").isInt({ gt: 0 }),
     check("id").custom(existeUsuarioPorId),
@@ -35,9 +35,13 @@ router.put(
   ],
   updateCuenta
 );
-router.delete("/cuentas/:id", deleteCuenta);
+router.delete("/cuenta/:id",[
+  check("id", "No es un id valido").isInt({ gt: 0 }),
+  check("id").custom(existeUsuarioPorId),
+  validarCampos,
+], deleteCuenta);
 router.get(
-  "/cuentas/:id",
+  "/cuenta/:id",
   [
     check("id", "No es un id valido").isInt({ gt: 0 }),
     check("id").custom(existeUsuarioPorId),
