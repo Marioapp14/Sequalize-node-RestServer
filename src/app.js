@@ -13,6 +13,8 @@ import TipoCuentaRoutes from "./routes/tipocuenta.routes.js";
 import CuentaRoutes from "./routes/cuenta.routes.js";
 import EstadoCuentaRoutes from "./routes/estadocuenta.routes.js";
 import indexRouter from "./routes/index.routes.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
