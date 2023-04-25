@@ -11,7 +11,7 @@ import "./models/cuenta.js";
 async function main() {
   const port = process.env.PORT || 3000;
   try {
-    sequalize.sync({force: false}); //Hace la conexion con la base de datos
+    // sequalize.sync({force: false}); //Hace la conexion con la base de datos
     app.listen(port);
     console.log("Server is listening on port ", port);
   } catch (error) {

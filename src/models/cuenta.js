@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize";
 import { sequalize } from "../database/database.js";
 import { Sesion } from "./sessions.js";
 
+
 export const Cuenta = sequalize.define(
   "cuenta",
   {
