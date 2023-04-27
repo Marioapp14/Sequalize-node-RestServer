@@ -1,6 +1,10 @@
 import { Cuenta } from "../models/cuenta.js";
 import bcrypt from "bcryptjs";
 import { Op } from "sequelize";
+import {
+  encriptarPassword,
+  validarPassword,
+} from "../helpers/db-validators.js";
 
 export const getCuentas = async (req, res) => {
   try {
@@ -25,6 +29,7 @@ export const getCuentas = async (req, res) => {
         },
       }),
     ]);
+
     res.json({ cuentas, total });
   } catch (error) {
     return res.status(500).json({ message: error.message });

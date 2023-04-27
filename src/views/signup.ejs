@@ -7,6 +7,11 @@
     <title>Document</title>
   </head>
   <body>
+    <% if (signupMessage) { %>
+
+    <div><%= signupMessage%></div>
+
+    <% }  %>
     <form action="/signup" method="POST">
       <input type="email" name="email" placeholder="Insert email" />
       <input
@@ -15,15 +20,17 @@
         id="password"
         placeholder="Insert Password"
       />
-      <br>
+      <br />
       <label for="mi-select">Carrera:</label>
       <select id="Carrera" name="Carrera">
-        <option disabled selected=""> Sellecione una Carrera</option>
-        <option value="Sistematizacion de Datos">Sistematizacion de Datos</option>
+        <option disabled selected="">Sellecione una Carrera</option>
+        <option value="Sistematizacion de Datos">
+          Sistematizacion de Datos
+        </option>
         <option value="Civiles">Civiles</option>
         <option value="Industrial">Industrial</option>
       </select>
-      <br>
+      <br />
       <button type="submit">Sign Up</button>
     </form>
   </body>

@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequalize } from "../database/database.js";
 import { Sesion } from "./sessions.js";
+import bcrypt from "bcryptjs";
 
 
 export const Cuenta = sequalize.define(
@@ -36,6 +37,22 @@ export const Cuenta = sequalize.define(
     }
   }, 
 );
+
+Cuenta.prototype.encriptarPassword = function(password){
+  //encriptar la contraseña
+  const salt = bcrypt.genSaltSync(10);
+  return bcrypt.hashSync(password, salt);
+};
+
+Cuenta.prototype.validarPassword = function(password){
+  //validar la contraseña
+  const validPassword = bcrypt.compareSync(password, this.password);
+  return validPassword;
+  if (!validPassword) {
+    throw new Error("La contraseña es incorrecta");
+  }
+};
+
 
 Cuenta.hasMany(Sesion, {
   //Una cuenta tiene muchas Sesiones
