@@ -41,3 +41,23 @@ passport.use(
     }
   )
 );
+
+passport.use(
+  "local-signin",
+  new LocalStrategy(
+    {
+      usernameField: "email",
+      passwordField: "password",
+      passReqToCallback: true, // permite pasar el req al callback
+    }, async (req, email, password, done) => {
+      const usuario = await Cuenta.findOne({ where: { usuario: email } });
+      if (!usuario) {
+        return done(null, false, req.flash("signinMessage", "No existe el usuario"));
+      }
+      if (!usuario.validarPassword(password)) {
+        return done(null, false, req.flash("signinMessage", "Contraseña incorrecta"));
+      }
+      done(null, usuario);
+    }
+  )
+);
